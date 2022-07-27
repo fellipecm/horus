@@ -6,11 +6,11 @@ variable "tenancy_id" {
 variable "compartment_name" {
   description = "Name of the compartment where to create all resources"
   type        = string
-  default     = "horus"
+  default     = "fellipecm"
 }
 
 variable "compartment_description" {
   description = "Description of the compartment where to create all resources"
   type        = string
-  default     = "Horus Project"
+  default     = "Default Project"
 }

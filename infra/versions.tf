@@ -1,8 +1,8 @@
 terraform {
-  required_version = "~> 1.2.0"
+  required_version = "~> 1.4.5"
 
   backend "remote" {
-    organization = "khuedoan"
+    organization = "fellipecm"
 
     workspaces {
       name = "horus"
@@ -12,7 +12,7 @@ terraform {
   required_providers {
     oci = {
       source  = "hashicorp/oci"
-      version = "~> 4.61.0"
+      version = "~> 4.117.0"
     }
   }
 }

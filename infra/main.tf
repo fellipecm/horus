@@ -23,25 +23,27 @@ resource "local_file" "ssh_private_key" {
 module "instance" {
   source         = "./modules/instance"
   compartment_id = module.base.compartment_id
-  display_name   = "horus"
+  display_name   = "rancher-${count.index}"
   subnet_id      = module.network.subnet_id
   ssh_public_key = tls_private_key.ssh.public_key_openssh
   shape = {
     name = "VM.Standard.A1.Flex"
     config = {
       cpus   = 4
-      memory = 24
+      memory = 8
     }
   }
+  count = 3
 }
 
 resource "local_file" "inventory" {
+  for_each = module.instance
   filename        = "${path.root}/../cluster/inventory.yml"
   file_permission = "0644"
   content = yamlencode({
     k3s = {
       hosts = {
-        "${module.instance.public_ip}" = {
+        "${each.public_ip}" = {
           ansible_user                 = "ubuntu"
           ansible_ssh_private_key_file = abspath(local_file.ssh_private_key.filename)
         }
